@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+<title>Global IPTV Channels</title>
+<meta content='width=device-width, initial-scale=1' name='viewport'/>
+<b:skin><![CDATA[]]></b:skin>
+<link href='https://fonts.googleapis.com/css?family=Roboto+Condensed&amp;display=swap' rel='stylesheet'/>
+<style type='text/css'>
+*{padding:0;margin:0}
+*,*::after,*::before{box-sizing: border-box}
+li{list-style:none}
+a{text-decoration:none;display: block;}
+body{background-color:#f5f5f5;font-family:&#39;Roboto&#39;,sans-serif;}
+h4{font-weight:500}
+header{min-height:120px}
+main{min-height:500px}
+footer .container{min-height:200px}
+nav,footer{background-color:#aaa}
+.row{clear:both}
+.abs{position:absolute}
+.rel{position:relative}
+.right{right:0}
+.txtc{text-align:center}
+.topnav{overflow:hidden}
+.btn,.toggle{border-right: 1px solid #aaa}
+.toggle:hover{background-color: #ddd}
+.btn{
+  background-color:#ccc;
+  color: #555;
+  cursor: pointer;
+  display: block;
+  font-size: 16px;
+  padding: 10px 25px;
+  text-align: center;
+}
+.btn.active{background-color: #ddd}
+.btn:hover{background-color: #eee}
+.btn:active{background-color: #ccc}
+.search input {
+  font-size: 16px;
+  margin-top: 4px;
+  width: 100%;
+  padding: 4px 10px;
+}
+.search{float:right; width: 25%}
+.topnav li{float: left}
+.toggle{font-size: 20px; display:none}
+.box{
+  background-color:#eee;
+  box-shadow:0px 0px 5px 1px #ccc;
+  float:left;
+  height:105px;
+  margin:5px;
+  overflow:hidden;
+  padding:5px;
+  position:relative;
+  text-align:center;
+  width:110px;
+}
+.box img{width: 100%}
+.box .title{
+    background-color: #3498db;
+    bottom: 0;
+    color: white;
+    font-family: &quot;Roboto&quot;;
+    font-size: 14px;
+    left: 0;
+    padding: 0 5px;
+    line-height: 20px;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.container{
+  overflow: hidden;
+  width: 1100px;
+  margin:auto
+}
+#player{margin-top: -15px;width:100%}
+@media screen and (max-width: 1100px){
+  .container{width: 100%}
+}
+@media screen and (max-width: 640px){
+  .topnav ul{display:none}
+  .list li{border-bottom: 1px solid #aaa;float: none}
+  .list{display:block !important; overflow: hidden;}
+  .search input {
+    padding: 3px 10px;
+  }
+  .search {
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 150px;
+    width: 75%;
+  }
+  .toggle{
+    width:40px;
+    color: #555;
+    display: block;
+    padding: 5px 10px;
+  }
+}
+footer{padding-top:20px;background-color:#333}
+footer .container{background:none;min-height:200px;position: relative}
+footer a{color:#fff}
+footer a:hover{color:#85c1e9}
+.foot{position: absolute; bottom: 10px}
+.foot li{margin-left: 30px;float:left;list-style:none}
+</style>
+<style id='css'> </style>
+<script src='//cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js' type='text/javascript'> </script>
+<script src='//cdn.statically.io/gh/sphp/iptv/master/js/category.js' type='text/javascript'> </script>
+<script>//<![CDATA[
+var w = window, d = document, wiw = w.innerWidth,
+fall  = function(a,b){return (b||d)["querySelectorAll"](a)},
+find  = function(a,b){return (b||d)["querySelector"](a)},
+byid  = function(a,b){return (b||d)["getElementById"](a)},
+isset = function(a){return typeof a !== 'undefined'},
+ajax  = function(url, fn, data=null, method){
+        if(method == void 0) method = data==null?'GET':'POST';
+        var xhr = new XMLHttpRequest();
+        xhr.open(method, url, true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        xhr.onreadystatechange = function(){if(this.readyState == 4 && this.status == 200)fn(this.responseText)};
+        xhr.send(data);
+    };
+function ready(fn) {
+  if (document.readyState != 'loading')fn();
+  else document.addEventListener('DOMContentLoaded', fn);
+}
+function _search(val){
+
+  var box = fall(".box");
+  for(let i = 0; i < box.length; i++) {
+    let h4 = find('h4', box[i]), txtval = h4.textContent || h4.innerText;
+    txtval = txtval.toLowerCase();
+    box[i].style.display = txtval.startsWith(val) ? '':'none';
+  }
+}
+function toggleClass(el,nc){
+  if(el.classList) el.classList.toggle(nc);
+  else{
+    let cls=el.className.split(" "), i=cls.indexOf(nc);
+    el.className = i>=0 ? cls.splice(i, 1): cls.push(nc).join(" ");
+  }
+}
+function fnRes(){
+  toggleClass(find(".topnav ul"), 'list');
+}
+function play(src){
+    let ssl = src.split('//')[0]; if(location.protocol !== ssl) location.protocol = ssl;
+    var _w = wiw<1100 ? wiw:1100, _h = _w*(360/640);
+    var player = new Clappr.Player({
+        parentId: "#player",
+        source: src,
+        width: _w,
+        height: _h
+    });
+}
+function eWidth(e){
+  var css = e.currentStyle||w.getComputedStyle(e);
+  return parseFloat(css.width)+parseFloat(css.marginLeft)+parseFloat(css.marginRight);
+}
+function reload(){
+  var
+  ccw = find('.container').offsetWidth,
+  bxw = eWidth(find('.box')),
+  nbx = Math.floor(ccw/bxw),
+  rem = Math.floor(ccw-nbx*bxw);
+  find('#css').innerHTML = '.container{padding-left:'+(rem/2)+'px}';
+}
+w.onload=w.onresize=reload;
+
+var prm = {}, requrl, cat, loc, lan, css, m3u,
+  home  = window.location.href.replace('?m=1',''),
+  burl  = location.protocol + '//' + location.host + location.pathname,
+  cdnb  = 'https://cdn.statically.io/gh/',
+  iptv  = cdnb+'sphp/iptv/master/',
+  jcdn  = iptv+'js/',
+  ccdn  = iptv+'css/',
+  icdn  = iptv+'img/',
+  m3ub  = cdnb+'iptv-org/iptv/master/channels/',
+  refr  = d.referrer,
+  html  = '';
+//]]></script>
+</head>
+<body>
+<header>
+  <div class='container'>
+    <div class='txtc'>
+      <a href='/'>
+        <img src='https://1.bp.blogspot.com/-Mmf5XkOOTB4/XZyPRDBv50I/AAAAAAAAEIA/XPIQY2Tamt8Wlco71mokeD0PV-FQFpw6ACLcBGAsYHQ/s320/iptv.png'/>
+        <h1 class='tac'>Global live TV Channels</h1>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class='topnav'>
+  <div class='container'>
+    <a class='toggle' href='javascript:void(0)' onclick='fnRes()'>&#9776;</a>
+    <ul>
+      <li><a class='btn active' href='#'>Home</a></li>
+      <li><a class='btn' href='#'>Link 1</a></li>
+      <li><a class='btn' href='#'>Link 2</a></li>
+      <li><a class='btn' href='#'>Link 3</a></li>
+    </ul>
+    <div class='search'>
+      <form><input name='search' onkeyup='_search(this.value)' placeholder='Search..' type='text'/></form>
+    </div>
+  </div>
+</nav>
+<main>
+  <div class='container'>
+    <div class='wrapper'>
+      <div id='player'> </div>
+    </div>
+  </div>
+</main>
+<footer>
+  <div class='container rel'>
+    <div class='row'><p> footer navigation </p></div>
+    <div class='foot'><a href='#'>Copyright 2019</a></div>
+    <div class='foot right'><a href='#'>policy</a> | <a href='#'>Disclamer</a></div>
+  </div>
+</footer>
+<script>//<![CDATA[
+if(home==burl){
+    html = '<div class="row">';
+    for (const[key, val] of Object.entries(clist)){
+        html+='<a href="?loc='+key+'" title="'+val+'"><div class="box"><img src="'+icdn+'flags/'+key+'.svg"/><h4 class="title">'+val+'</h4></div></a>';
+    }
+    html += '</div>';
+    html += '<div class="row">';
+    for(let i in group){
+        html+='<a href="?cat='+group[i]+'"><div class="box"><img src="'+icdn+'groups/'+group[i]+'.jpg"/><h4 class="title">'+group[i]+'</h4></div></a>';
+    }
+    find('.wrapper').innerHTML = html;
+    html += '</div>';
+}
+else{
+    window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,k,v){prm[k]=v});
+    if(isset(prm.src)){
+        play(prm.src);
+    }
+    else if(isset(prm.loc) || isset(prm.cat)){
+        requrl = isset(prm.cat) ? iptv+prm.cat+'.m3u': m3ub+prm.loc+'.m3u' ;
+        ajax(requrl,function(m3u){
+            if(m3u.length>0){
+            var list = m3u.split('#EXTINF:-');
+            list.shift();
+            html = '';
+            for(var i in list){
+              var p = list[i].split(',');
+              if(isset(p[0]) && p[0].length>0){
+                var logo  = p[0].match("tvg-logo=(.*) ")[1];
+                var name  = p[0].match("tvg-name=(.*) ")[1];
+              }
+              p = p[1].split('\n');
+              var title = isset(p[0]) ? p[0] : 'iptv';
+              //if(!isset(p[1])) continue;
+              var link = isset(p[1]) ? p[1] : '';
+              html += '<a href="?src='+link+'" title="'+title+'"><div class="box rel"><img src='+logo+' onerror="this.src=\''+icdn+'other.jpg\';this.onerror=\'\';"/><h4 class="title">'+title+'</h4></div></a>';
+            }
+            find('.wrapper').innerHTML = html;
+            }
+        });
+    }
+}
+//]]></script>
+<b:section id='main'/>
+</body>
+</html>

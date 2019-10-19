@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:css='false' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+<meta content='initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'/>
+<title>TV Player</title>
+<b:skin><![CDATA[]]></b:skin>
+<style>
+*{margin: 0;padding: 0}
+
+li{
+    float:left;
+    list-style:none;
+}
+body {
+  background-color: #ebedef;
+  font-family: Arial, Helvetica, sans-serif;
+}
+header h1{
+  text-align:center;
+}
+a{text-decoration: none;}
+.box {
+    background-color: #d6dbdf;
+    box-shadow: 0 0 3px 2px #bbb;
+    height: 100px;
+    margin: 10px;
+    overflow: hidden;
+    padding: 5px;
+    position: relative;
+    text-align: center;
+    width: 100px;
+}
+
+.group h4 {
+    background-image: linear-gradient(to bottom, rgba(100, 0, 0, 0), rgb(100, 0, 0));
+    bottom: 0;
+    color: white;
+    left: 0;
+    position: absolute;
+    right: 0;
+}
+.box img {width: 100%}
+.box a {display: block}
+.category li{padding: 5px 10px}
+.row{clear:both}
+
+
+.topnav {
+    background-color: #aaa;
+    margin: 20px 0;
+    overflow: hidden;
+}
+.topnav a {
+    color: black;
+    display: block;
+    float: left;
+    font-size: 15px;
+    padding: 10px 20px;
+    
+}
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #2196F3;
+  color: white;
+}
+.topnav .search-container {
+  float: right;
+}
+.topnav input[type=text] {
+  padding: 5px 10px;
+  margin-top: 5px;
+  font-size: 15px;
+  border: none;
+}
+
+.topnav .search-container button {
+  float: right;
+  padding: 6px 10px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.topnav .search-container button:hover {
+  background: #ccc;
+}
+.logo{text-align: center;}
+
+#player {
+    margin: auto;
+    width: 640px;
+}
+.container{
+    width:1100px;
+    margin:auto;
+}
+@media only screen and (max-width: 640px){
+    #player{width: 100%}
+}
+@media only screen and (max-width: 1099px){
+    .container{width: 100%}
+}
+
+@media screen and (max-width: 600px) {
+  .topnav .search-container {
+    float: none;
+  }
+  .topnav a, .topnav input[type=text], .topnav .search-container button {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+  }
+  .topnav input[type=text] {
+    border: 1px solid #ccc;  
+  }
+}
+#wrapper{margin: auto;}
+</style>
+<script src='https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js' type='text/javascript'> </script>
+</head>
+<body>
+  <header>
+    <div class='row container'>
+      <div class='logo'><img src='https://1.bp.blogspot.com/-Mmf5XkOOTB4/XZyPRDBv50I/AAAAAAAAEIA/XPIQY2Tamt8Wlco71mokeD0PV-FQFpw6ACLcBGAsYHQ/s320/iptv.png'/></div>
+      <h1><a class='active' href='/'>Global live TV Channels</a></h1>
+    </div>
+  </header>
+
+  <nav class='topnav'>
+    <div class='row container'>
+      <a class='active' href='/'>Home</a>
+      <a href='#about'>About</a>
+      <div class='search-container'>
+        <form>
+          <input name='search' onkeyup='filterItem(this.value)' placeholder='Search..' type='text'/>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <div class='row container'>
+    <div id='wrapper'>
+      <div id='player'> </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class='row container'>
+      <a class='active' href='/'>Copyright 2019</a> | <a class='active' href='/'>policy</a> | <a class='active' href='/'>Disclamer</a>
+    </div>
+  </footer>
+<script>//<![CDATA[
+var cnt =  ['af','al','dz','as','ad','ao','ai','aq','ag','ar','am','aw','au','at','az','bs','bh','bd','bb','by','be','bz','bj','bm','bt','bo','bq','ba','bw','bv','br','io','bn','bg','bf','bi','cv','kh','cm','ca','ky','cf','td','cl','cn','cx','cc','co','km','cd','cg','ck','cr','hr','cu','cw','cy','cz','ci','dk','dj','dm','do','ec','eg','sv','gq','er','ee','sz','et','fk','fo','fj','fi','fr','gf','pf','tf','ga','gm','ge','de','gh','gi','gr','gl','gd','gp','gu','gt','gg','gn','gw','gy','ht','hm','va','hn','hk','hu','is','in','id','ir','iq','ie','im','il','it','jm','jp','je','jo','kz','ke','ki','kp','kr','kw','kg','la','lv','lb','ls','lr','ly','li','lt','lu','mo','mg','mw','my','mv','ml','mt','mh','mq','mr','mu','yt','mx','fm','md','mc','mn','me','ms','ma','mz','mm','na','nr','np','nl','nc','nz','ni','ne','ng','nu','nf','mp','no','om','pk','pw','ps','pa','pg','py','pe','ph','pn','pl','pt','pr','qa','mk','ro','ru','rw','re','bl','sh','kn','lc','mf','pm','vc','ws','sm','st','sa','sn','rs','sc','sl','sg','sx','sk','si','sb','so','za','gs','ss','es','lk','sd','sr','sj','se','ch','sy','tw','tj','tz','th','tl','tg','tk','to','tt','tn','tr','tm','tc','tv','ug','ua','ae','gb','um','us','uy','uz','vu','ve','vn','vg','vi','wf','eh','ye','zm','zw','ax'];
+
+var ctg = ['auto','business','classic','comedy','documentary','education','entertainment','family','fashion','food','general','health','history','hobby','kids','legislative','lifestyle','local','movies','music','news','quiz','religious','sci-fi','shop','sport','travel','weather','xxx','other'];
+    
+var w = window.innerWidth, h = window.innerHeight,
+prm={}, requrl, cat, loc, lan, html, css, m3u,
+home = window.location.href.replace('?m=1',''),
+baseurl = location.protocol + '//' + location.host + location.pathname,
+gcdn = 'https://cdn.jsdelivr.net/gh/',
+iptv = 'https://iptv-org.github.io/iptv/categories/',
+m3uB = gcdn+'iptv-org/iptv/channels/',
+cdnf = gcdn+'sphp/flag-icon/flags/4x3/',
+byid = function(a,b){return (b||document)["getElementById"](a)},
+fall = function(a,b){return (b||document)["querySelectorAll"](a)},
+find = function(a,b){return (b||document)["querySelector"](a)},
+_set = function(a){return typeof a !== 'undefined'},
+_get = function(url,callback){
+  var xh = new XMLHttpRequest()
+  xh.open('GET', url)
+  xh.onreadystatechange = function(){callback(xh.responseText)}
+  xh.send()
+};
+
+
+
+
+function altssl(src){
+  let ssl = src.split('//')[0]; if(location.protocol !== ssl) location.protocol = ssl;
+}
+function play(src){
+  altssl(src);
+  var _w=640, _h=360;
+
+  if(w<_w){
+    _w = w;
+    _h = _w * (360/640);
+  }
+
+  var player = new Clappr.Player({
+    parentId: "#player",
+    source: src,
+    width: _w,
+    height: _h
+  });
+}
+
+function filterItem(val){
+  val = val.toLowerCase();
+    var input, ul, li, span, i, txtValue;
+    ul = find('ul');
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        span = li[i].getElementsByTagName("h4")[0];
+        txtValue = span.textContent || span.innerText;
+    txtValue = txtValue.toLowerCase();
+        if (txtValue.startsWith(val)) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
+
+html = '';
+
+if(home==baseurl){
+    //https://cdn.jsdelivr.net/npm/country-list@2.2.0/data.json
+
+    html+='<ul class="row list">';
+    for(let i in cnt) html+='<li class="fl box"><a href="'+baseurl+'?loc='+cnt[i]+'"><img src="'+cdnf+cnt[i]+'.svg"/><h4>'+cnt[i]+'</h4></a></li>';
+    html+='</ul>';
+
+    html+='<ul class="row list">';
+    for(let i in ctg) html+='<li class="fl box"><a href="'+baseurl+'?cat='+ctg[i]+'">'+ctg[i]+'</a></li>';
+    html+='</ul>';
+
+    byid('wrapper').setAttribute('class', 'home');
+    byid('wrapper').innerHTML = html;
+}
+else{
+    window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,k,v){prm[k]=v});
+    if(_set(prm.src)) {
+        play(prm.src);
+    }
+    else if(_set(prm.loc) || _set(prm.cat)){
+        requrl = _set(prm.cat) ? iptv+prm.cat+'.m3u': m3uB+prm.loc+'.m3u' ;
+        
+        _get(requrl,function(m3u){
+            if(m3u.length>0){
+                var list = m3u.split('#EXTINF:-');
+                list.shift();
+                html = '<ul class="list">';
+                for(var i in list){
+                    var p = list[i].split(',');
+                    if(_set(p[0]) && p[0].length>0){
+                        var logo  = p[0].match("tvg-logo=(.*) ")[1];
+                        var name  = p[0].match("tvg-name=(.*) ")[1];
+                    }
+                    p = p[1].split('\n');
+                    var title = _set(p[0]) ? p[0] : 'iptv';
+                    //if(!_set(p[1])) continue;
+                    var link = _set(p[1]) ? p[1] : '';
+                    html += '<li class="fl box"><a href="?src='+link+'"><img src='+logo+' onerror="this.src=\'https://1.bp.blogspot.com/-HPQAjpuvW4E/XZ2WZiq6b_I/AAAAAAAAEIQ/8GGjtXbRqXQvvB9rSEK_w_qGkMu51QeUACLcBGAsYHQ/s320/tv.png\';this.onerror=\'\';"/><h4>'+title+'</h4></a></li>';
+                }
+                html += '</ul>';
+                byid('wrapper').setAttribute('class', 'group');
+                byid('wrapper').innerHTML = html;
+            }
+        });
+    }
+}
+
+var bw = find('.box').offsetWidth+20;
+var cw = find('.container').clientWidth;
+var nb = Math.floor(cw/bw);
+find('#wrapper').setAttribute('style', 'width:'+nb*bw+'px');
+
+//]]></script>
+<b:section id='main'/>
+</body>
+</html>
