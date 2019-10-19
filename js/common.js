@@ -57,9 +57,6 @@ function toggleClass(el,nc){
       el.className = i>=0 ? cls.splice(i, 1): cls.push(nc).join(" ");
    }
 }
-function fnRes(){
-   toggleClass(find('.topnav ul'), 'list');
-}
 /*Responsive position for chield elements inside parent element*/
 function responsive(pelm, celm){
    var  pelmw = pelm.offsetWidth,
