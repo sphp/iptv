@@ -66,6 +66,7 @@ function responsive(pelm, celm){
    var  pw = pelm.offsetWidth, cw = eWidth(celm),
    nce = Math.floor(pw/cw),
    rst = Math.floor(pw-nce*cw),
-   css = '.'+pelm.className+'{padding:0 '+(rst/2)+'px}';
+   css = '*{margin:0;padding:0;box-sizing:border-box}\n';
+   css += '.'+pelm.className+'{padding:0 '+(rst/2)+'px}';
    is_set(select('#dcss')) ? select('#dcss').innerHTML = css : append(elm('style',{id:'dcss'}, css), 'head');
 }
