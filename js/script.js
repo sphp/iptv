@@ -15,43 +15,43 @@ function each(a,fn,v){var els=selall(a);for(let i=0;i<els.length;i++)els[i][fn]=
 function loop(a,cb){var els=selall(a);for(let i=0;i<els.length;i++)cb(els[i])}
 
 function ajax(url, fn, data=null, method){
-    if(method === void 0) method = data==null?'GET':'POST';
-    var xh = new XMLHttpRequest();
-    xh.open(method, url, true);
-    xh.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-    xh.onreadystatechange = function(){
-        if(this.readyState == 4 && this.status == 200) fn(this.responseText);
-    };
-    xh.send(data);
+   if(method === void 0) method = data==null?'GET':'POST';
+   var xh = new XMLHttpRequest();
+   xh.open(method, url, true);
+   xh.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+   xh.onreadystatechange = function(){
+      if(this.readyState == 4 && this.status == 200) fn(this.responseText);
+   };
+   xh.send(data);
 }
 function elm(tag, attr, html, nl='\n'){
-    var elm = document.createElement(tag);
-    if(is_obj(attr)) for(const[k, v] of Object.entries(attr)) elm.setAttribute(k, v);
-    else if(is_str(attr) && html === void 0) elm.innerHTML = attr;
-    if(html !== void 0) elm.innerHTML = is_arr(html) ? html.join(nl) : html;
-    return elm;
+   var elm = document.createElement(tag);
+   if(is_obj(attr)) for(const[k, v] of Object.entries(attr)) elm.setAttribute(k, v);
+   else if(is_str(attr) && html === void 0) elm.innerHTML = attr;
+   if(html !== void 0) elm.innerHTML = is_arr(html) ? html.join(nl) : html;
+   return elm;
 }
 function url(url, attr, each=false){
-    if(!each) url= url+'?v='+new Date().getTime();
-    let ext = url.split(/\#|\?/)[0].split('.').pop().trim();
-    if(ext=='js') return elm('script', attr||{src:url, type:'text/javascript'});
-    else if(ext=='css') return elm('link', attr||{href:url, rel:'stylesheet'});
-    else if(ext=='jpg'||ext=='png'||ext=='gif'||ext=='svg'||ext=='bmp') return elm('img', attr||{src:url});
-    return elm('a', attr||{href:url});
+   if(!each) url= url+'?v='+new Date().getTime();
+   let ext = url.split(/\#|\?/)[0].split('.').pop().trim();
+   if(ext=='js') return elm('script', attr||{src:url, type:'text/javascript'});
+   else if(ext=='css') return elm('link', attr||{href:url, rel:'stylesheet'});
+   else if(ext=='jpg'||ext=='png'||ext=='gif'||ext=='svg'||ext=='bmp') return elm('img', attr||{src:url});
+   return elm('a', attr||{href:url});
 }
 function eWidth(elm){
-    var css = elm.currentStyle||w.getComputedStyle(elm);
-    return parseFloat(css.width)+parseFloat(css.marginLeft)+parseFloat(css.marginRight);
+   var css = elm.currentStyle||w.getComputedStyle(elm);
+   return parseFloat(css.width)+parseFloat(css.marginLeft)+parseFloat(css.marginRight);
 }
 function filter(val, slector, start=true){
-    var els = selall(slector);
-    for(let i = 0; i < els.length; i++) {
-        let txtval = els[i].textContent || els[i].innerText;
-        if(txtval){
-            if(start) els[i].style.display = txtval.toLowerCase().startsWith(val.toLowerCase()) ? '' : 'none';
-            else els[i].style.display = txtval.toLowerCase().indexOf(val.toLowerCase())>-1 ? '' : 'none';
-        }
-    }
+   var els = selall(slector);
+   for(let i = 0; i < els.length; i++) {
+      let txtval = els[i].textContent || els[i].innerText;
+      if(txtval){
+         if(start) els[i].style.display = txtval.toLowerCase().startsWith(val.toLowerCase()) ? '' : 'none';
+         else els[i].style.display = txtval.toLowerCase().indexOf(val.toLowerCase())>-1 ? '' : 'none';
+      }
+   }
 }
 function toggleClass(el,nc){
    if(el.classList) el.classList.toggle(nc);
