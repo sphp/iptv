@@ -53,7 +53,7 @@ function filter(val, slector, start=true){
       }
    }
 }
-function toggleClass(el,nc){
+function toggle(el,nc){
    if(el.classList) el.classList.toggle(nc);
    else{
       let cls=el.className.split(' '),
