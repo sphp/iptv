@@ -1,5 +1,5 @@
-/*@import url('https://fonts.googleapis.com/css?family=Roboto+Open+Sans')*/
-*{box-sizing: border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;}
+@import url('https://fonts.googleapis.com/css?family=Roboto+Open+Sans')
+
 body{
   background-color:#f5f5f5;
   font-family:'Roboto',sans-serif;
