@@ -42,11 +42,4 @@ function toggleClass(el,nc){
       el.className = i>=0 ? cls.splice(i, 1): cls.push(nc).join(" ");
    }
 }
-/*Responsive position for chield elements inside parent element*/
-function responsive(pelm, celm){
-   var  pelmw = pelm.offsetWidth,
-   celmw = eWidth(celm),
-   ncelm = Math.floor(pelmw/celmw),
-   extra = Math.floor(pelmw-ncelm*celmw);
-   find('#css').innerHTML = '.'+pelm.className+'{padding:0 '+(extra/2)+'px}';
-}
+
