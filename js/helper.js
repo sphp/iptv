@@ -40,7 +40,7 @@ function url(url, attr, each=false){
    return elm('a', attr||{href:url});
 }
 function eWidth(elm){
-   var css = elm.currentStyle||w.getComputedStyle(elm);
+   var css = elm.currentStyle||window.getComputedStyle(elm);
    return parseFloat(css.width)+parseFloat(css.marginLeft)+parseFloat(css.marginRight);
 }
 function filter(val, slector, start=true){
