@@ -49,8 +49,8 @@ ajax  =function(url,fn,data=null,method){
 
 function elm(tag, attr, html, nl='\n'){
    var elm = document.createElement(tag);
-   if(is_obj(attr)) for(const[k, v] of Object.entries(attr)) elm.setAttribute(k, v);
-   else if(is_str(attr) && html === void 0) elm.innerHTML = attr;
+   if(isobj(attr)) for(const[k, v] of Object.entries(attr)) elm.setAttribute(k, v);
+   else if(isstr(attr) && html === void 0) elm.innerHTML = attr;
    if(html !== void 0) elm.innerHTML = is_arr(html) ? html.join(nl) : html;
    return elm;
 }
