@@ -34,8 +34,8 @@ find  =function(a,b){return (b||d)['querySelector'](a)},
 byid  =function(a,b){return (b||d)['getElementById'](a)},
 append=function(a,b){return (find(b))['appendChild'](a)},
 insert=function(a,b,p='beforeend'){return (find(b))['insertAdjacentHTML'](p,a)},/*beforebegin,afterbegin,beforeend,afterend*/
-each  =function(a,fn,v){var els=selall(a);for(let i=0;i<els.length;i++)els[i][fn]=v},
-loop  =function(a,cb){var els=selall(a);for(let i=0;i<els.length;i++)cb(els[i])},
+each  =function(a,fn,v){var els=fall(a);for(let i=0;i<els.length;i++)els[i][fn]=v},
+loop  =function(a,cb){var els=fall(a);for(let i=0;i<els.length;i++)cb(els[i])},
 ajax  =function(url,fn,data=null,method){
         if(method == void 0) method = data==null?'GET':'POST';
         var xh = new XMLHttpRequest();
