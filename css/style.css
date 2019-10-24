@@ -63,6 +63,7 @@ main .container{min-height:200px;background-color:#fff}
 .topnav li{list-style:none}
 .btn,.toggle{border-right: 1px solid #aaa}
 .toggle:hover{background-color: #ddd}
+
 .btn{
   background-color:#ccc;
   color: #555;
