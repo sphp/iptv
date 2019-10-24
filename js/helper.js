@@ -65,8 +65,6 @@ function toggle(el,nc){
 function responsive(pelm, celm){
    var  pw = pelm.offsetWidth, cw = eWidth(celm),
    nce = Math.floor(pw/cw),
-   rst = Math.floor(pw-nce*cw),
-   css = '*{margin:0;padding:0;box-sizing:border-box}\n';
-   css += '.'+pelm.className+'{padding:0 '+(rst/2)+'px}';
-   is_set(select('#dcss')) ? select('#dcss').innerHTML = css : append(elm('style',{id:'dcss'}, css), 'head');
+   rst = Math.floor(pw-nce*cw);
+   select('#dcss').innerHTML = '.'+pelm.className+'{padding:0 '+(rst/2)+'px}';
 }
