@@ -24,18 +24,13 @@ var clist={ad :'Andorra',ae :'United Arab Emirates',af :'Afghanistan',al :'Alban
 var w=window, d=document, wiw=w.innerWidth,
 base  =location.protocol+'//'+location.host+location.pathname,
 isset =function(a){return typeof a !== 'undefined'},
-isarr =function(a){return Array.isArray(a)},
 inarr =function(a,v){return a.indexOf(v)>-1},
 iselm =function(a){return a instanceof Element||a instanceof HTMLDocument}
-isstr =function(a){return typeof a==='string'||a instanceof String}
-isobj =function(a){return a && typeof a==='object' && a.constructor===Object}
 fall  =function(a,b){return (b||d)['querySelectorAll'](a)},
 find  =function(a,b){return (b||d)['querySelector'](a)},
 byid  =function(a,b){return (b||d)['getElementById'](a)},
-append=function(a,b){return (find(b))['appendChild'](a)},
-insert=function(a,b,p='beforeend'){return (find(b))['insertAdjacentHTML'](p,a)},/*beforebegin,afterbegin,beforeend,afterend*/
-each  =function(a,fn,v){var els=fall(a);for(let i=0;i<els.length;i++)els[i][fn]=v},
-loop  =function(a,cb){var els=fall(a);for(let i=0;i<els.length;i++)cb(els[i])},
+each  =function(a,fn,v){var els=selall(a);for(let i=0;i<els.length;i++)els[i][fn]=v},
+loop  =function(a,cb){var els=selall(a);for(let i=0;i<els.length;i++)cb(els[i])},
 ajax  =function(url,fn,data=null,method){
         if(method == void 0) method = data==null?'GET':'POST';
         var xh = new XMLHttpRequest();
@@ -46,22 +41,6 @@ ajax  =function(url,fn,data=null,method){
         };
         xh.send(data);
       };
-
-function elm(tag, attr, html, nl='\n'){
-   var elm = document.createElement(tag);
-   if(isobj(attr)) for(const[k, v] of Object.entries(attr)) elm.setAttribute(k, v);
-   else if(isstr(attr) && html === void 0) elm.innerHTML = attr;
-   if(html !== void 0) elm.innerHTML = is_arr(html) ? html.join(nl) : html;
-   return elm;
-}
-function url(url, attr, each=false){
-   if(!each) url= url+'?v='+new Date().getTime();
-   let ext = url.split(/\#|\?/)[0].split('.').pop().trim();
-   if(ext=='js') return elm('script', attr||{src:url, type:'text/javascript'});
-   else if(ext=='css') return elm('link', attr||{href:url, rel:'stylesheet'});
-   else if(ext=='jpg'||ext=='png'||ext=='gif'||ext=='svg'||ext=='bmp') return elm('img', attr||{src:url});
-   return elm('a', attr||{href:url});
-}
 function eWidth(elm){
    var css = elm.currentStyle||w.getComputedStyle(elm);
    return parseFloat(css.width)+parseFloat(css.marginLeft)+parseFloat(css.marginRight);
