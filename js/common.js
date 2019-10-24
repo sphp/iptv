@@ -32,8 +32,8 @@ isobj =function(a){return a && typeof a==='object' && a.constructor===Object}
 fall  =function(a,b){return (b||d)['querySelectorAll'](a)},
 find  =function(a,b){return (b||d)['querySelector'](a)},
 byid  =function(a,b){return (b||d)['getElementById'](a)},
-append=function(a,b){return (select(b))['appendChild'](a)},
-insert=function(a,b,p='beforeend'){return (select(b))['insertAdjacentHTML'](p,a)},/*beforebegin,afterbegin,beforeend,afterend*/
+append=function(a,b){return (find(b))['appendChild'](a)},
+insert=function(a,b,p='beforeend'){return (find(b))['insertAdjacentHTML'](p,a)},/*beforebegin,afterbegin,beforeend,afterend*/
 each  =function(a,fn,v){var els=selall(a);for(let i=0;i<els.length;i++)els[i][fn]=v},
 loop  =function(a,cb){var els=selall(a);for(let i=0;i<els.length;i++)cb(els[i])},
 ajax  =function(url,fn,data=null,method){
