@@ -106,7 +106,21 @@ main .container{min-height:200px;background-color:#fff}
     padding: 5px 10px;
   }
 }
-
+.a2a_kit {
+    display: table;
+    margin: auto;
+}
+.a2a_kit a{
+    float: left;
+   margin: 3px
+}
+.top-fixed {
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 9999999;
+}
 /*****  Ead Top Navbar Style  ******/
 footer{padding-top:20px;background-color:#333}
 footer .container{background:none;min-height:230px; position: relative}
