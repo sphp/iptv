@@ -5,23 +5,23 @@ var i,prm={},w=window,d=document,wiw=w.innerWidth,wih=w.innerHeight,
 url=w.location.href, baseURL=w.location.protocol+'//'+w.location.host+w.location.pathname;
 function encode(a){return encodeURIComponent(a)}
 function decode(a){return decodeURIComponent(a)}
-function obj2str(o){return JSON.stringify(o)}
+function strobj(o){return JSON.stringify(o)}
 function inarr(a,v){return a.indexOf(v)>=0}
 function isarr(a){return Array.isArray(a)}
 function isset(a){return typeof a !== 'undefined'}
-function iselm(a){return a instanceof Element||a instanceof HTMLDocument}
-function isstr(a){return typeof a==='string'||a instanceof String}
-function isobj(a){return a && typeof a==='object' && a.constructor===Object}
 function ishtml(a){return /<[a-z/][\s\S]*>/i.test(a)}
-function parse(a,t){return new DOMParser().parseFromString(a,t===void 0?'text/html':t)}
+function isstr(a){return typeof a==='string'||a instanceof String}
+function iselm(a){return a instanceof Element||a instanceof HTMLDocument}
+function isobj(a){return a && typeof a==='object' && a.constructor===Object}
 function nocash(url){return url+(url.indexOf('?')>0?'&v=':'?v=')+new Date().getTime()}
+function parse(a,t){return new DOMParser().parseFromString(a,t===void 0?'text/html':t)}
 function elm(t,at,ht){let k,e=d.createElement(t);if(isobj(at))for(k in at)e.setAttribute(k,at[k]);e.innerHTML=ht||at;return e}
 function toelm(a){return elm('div',a).firstChild}
-function select(a,b){if(ishtml(a))a=toelm(a);return iselm(a)?a:(b||d)['querySelector'](a)}
-function selall(a,b){return (b||d)['querySelectorAll'](a)}
 function byid(a,b){return (b||d)['getElementselid'](a)}
-function loop(a,cb){a=isstr(a)?selall(a):(nlist(a)?a:[a]);for(i=0;i<a.length;i++)cb(a[i],i)}
-function each(a,fn,v){a=isstr(a)?selall(a):(nlist(a)?a:[a]);for(i=0;i<a.length;i++)a[i][fn]=v}
+function selall(a,b){return (b||d)['querySelectorAll'](a)}
+function select(a,b){if(ishtml(a))a=toelm(a);return iselm(a)?a:(b||d)['querySelector'](a)}
+function loop(a,cb){a=isstr(a)?selall(a):(iselm(a)?[a]:a); for(i=0;i<a.length;i++)cb(a[i],i)}
+function each(a,fn,v){a=isstr(a)?selall(a):(iselm(a)?[a]:a);for(i=0;i<a.length;i++)a[i][fn]=v}
 function insert(a,b,p){loop(b, function(e){(e)['insertAdjacentHTML'](p||'beforeend',a)})}/*beforebegin,afterbegin,beforeend,afterend*/
 function append(a,b){(iselm(b)?b:select(b))['appendChild'](iselm(a)?a: select(a))}
 function ajax(url,fn,d,m){
@@ -31,8 +31,8 @@ function ajax(url,fn,d,m){
    xh.onreadystatechange=function(){if(this.readyState==4&&this.status==200)fn(this.responseText)};
    xh.send(d);
 }
-function url2obj(u){let p,pr={},po=(u||w.location.search).substr(1).split('&');for(i in po){p=po[i].split('=');pr[p[0]]=p[1]} return pr}
-function obj2url(o){let pa;if(isset(o.prm))for(i in o.prm)pa[i]=i+'='+o.prm[i];return pa.join('&')}
+function req2obj(u){let p,pr={},po=(u||w.location.search).substr(1).split('&');for(i in po){p=po[i].split('=');pr[p[0]]=p[1]}return pr}
+function obj2req(o){let pa;if(isset(o.prm))for(i in o.prm)pa[i]=i+'='+o.prm[i];return pa.join('&')}
 function parseURL(u){
    let sp, a=elm('a',{href:u||url});
    return {protocol:a.protocol,
@@ -41,7 +41,7 @@ function parseURL(u){
                port:a.port,
                path:a.pathname,
              search:a.search,
-               pram:url2obj(a.search),
+               pram:req2obj(a.search),
                hash:a.hash};
 }
 function eWidth(e){
@@ -96,16 +96,4 @@ function paging(listlen, page, limit, sbtn){
       if(totpag>page)list=offset+' to '+(offset+limit);else if(totpag==page)list=offset+' '+listlen;else list='nill';
       return list+'<div class="row paging">'+first+btns+last+'</div>';
    }
-}
-function responsive(p){
-   p = select(p); c = selall(c);
-   var pw=p.offsetWidth,cw=eWidth(c[0]),rows=640<pw?5:10,
-   rcnum=Math.floor(pw/cw),
-   rempx=Math.floor(pw-rcnum*cw);
-   if(c.length==1){
-      let boxes = rows*rcnum, boxdata = '';
-      for(let i=0; i<boxes; i++) boxdata += '<div class="box pseudo"></div>';
-      select('.wrapper').innerHTML = boxdata;
-   }
-   p.style.padding = '0 '+rempx/2+'px';
 }
