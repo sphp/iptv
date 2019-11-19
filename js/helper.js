@@ -97,3 +97,16 @@ function paging(listlen, page, limit, sbtn){
       return list+'<div class="row paging">'+first+btns+last+'</div>';
    }
 }
+/*Responsive position for chield elements inside parent element*/
+function responsive(p, c){
+	p = select(p); c = selall(c);
+	var pw = p.offsetWidth, cw=eWidth(c[0]), rows = 640<pw ? 5 : 10,
+	rcnum = Math.floor(pw/cw),
+	rempx = Math.floor(pw-rcnum*cw);
+	if(c.length==1){
+		let boxes = rows*rcnum, boxdata = '';
+		for(let i=0; i<boxes; i++) boxdata += '<div class="box pseudo"></div>';
+		select('.wrapper').innerHTML = boxdata;
+	}
+	p.style.padding = '0 '+rempx/2+'px';
+}
