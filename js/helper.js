@@ -44,7 +44,7 @@ function parseURL(u){
                pram:req2obj(a.search),
                hash:a.hash};
 }
-function eWidth(e){
+function _width(e){
    let css=e.currentStyle||w.getComputedStyle(e);
    return parseFloat(css.width)+parseFloat(css.marginLeft)+parseFloat(css.marginRight)
 }
@@ -97,10 +97,89 @@ function paging(listlen, page, limit, sbtn){
       return list+'<div class="row paging">'+first+btns+last+'</div>';
    }
 }
+function carousel(a){
+   var index=0,thisX1=0,thisX2=0, initX,
+   slider=document.querySelector(a.slider || '#slider'),
+   prev=slider.querySelector(a.prev || '.prev'),
+   next=slider.querySelector(a.next || '.next'),
+   items=slider.querySelector(a.tiles || '.tiles'),
+   slides=items.querySelectorAll((a.tiles || '.tiles') + ' > *'),
+   tileSize=_width(slides[0]),
+   cloneFirst=slides[0].cloneNode(true),
+   cloneLast=slides[slides.length - 1].cloneNode(true),
+   allowShift=a.shift || true;
+   // Clone first and last slide
+   items.appendChild(cloneFirst);
+   items.insertBefore(cloneLast, slides[0]);
+   var total = (items.querySelectorAll((a.tiles || '.tiles') + ' > *').length);
+   slider.style = 'width:' + a.width + 'px;height:' + a.height + 'px';
+   items.style = 'width:' + (tileSize * total) + 'px';
+   //slider.classList.add('loaded');
+   prev.addEventListener('click', function(){moveItem(-1)});
+   next.addEventListener('click', function() {moveItem(1)});
+   function moveItem(dir, action) {
+      items.classList.add('shifting');
+      if (allowShift) {
+         if (!action) {
+            initX=items.offsetLeft;
+         }
+         if (dir == 1) {
+            items.style.left = (initX - tileSize) + "px";
+            index++;
+         } else if (dir == -1) {
+            items.style.left = (initX + tileSize) + "px";
+            index--;
+         }
+      };
+      allowShift=false;
+   }
+   // Mouse and Touch events
+   items.onmousedown=dragStart;
+   items.ontouchstart=dragStart;
+   items.ontouchend=dragEnd;
+   items.ontouchmove=dragItem;
+   function dragStart(e) {
+      e=e || window.event;
+      e.preventDefault();
+      initX=items.offsetLeft;
+      thisX1 = (e.type == 'touchstart') ? e.touches[0].clientX : e.clientX;
+      document.onmouseup=dragEnd;
+      document.onmousemove=dragItem;
+   }
+   function dragItem(e) {
+      e=e || window.event;
+      thisX2 = (e.type == 'touchmove') ? thisX1 - e.touches[0].clientX : thisX1 - e.clientX;
+      thisX1 = (e.type == 'touchmove') ? e.touches[0].clientX : e.clientX;
+      items.style.left = (items.offsetLeft - thisX2) + "px";
+   }
+   function dragEnd(e) {
+      document.onmouseup=null;
+      document.onmousemove=null;
+   }
+   items.addEventListener('transitionend', checkIndex);
+   function checkIndex() {
+      items.classList.remove('shifting');
+      if (index == -1) {
+         items.style.left = -(slides.length * tileSize) + "px";
+         index=slides.length - 1;
+      }
+      if (index == slides.length) {
+         items.style.left = -(1 * tileSize) + "px";
+         index=0;
+      }
+      allowShift=true;
+   }
+   if (a.autoplay == true) {
+      setTimeout(function next() {
+         moveItem(1);
+         setTimeout(next, a.speed || 1000);
+      }, 10);
+   }
+}
 /*Responsive position for chield elements inside parent element*/
 function responsive(p, c){
 	p = select(p); c = selall(c);
-	var pw = p.offsetWidth, cw=eWidth(c[0]), rows = 640<pw ? 5 : 10,
+	var pw = p.offsetWidth, cw=_width(c[0]), rows = 640<pw ? 5 : 10,
 	rcnum = Math.floor(pw/cw),
 	rempx = Math.floor(pw-rcnum*cw);
 	if(c.length==1){
